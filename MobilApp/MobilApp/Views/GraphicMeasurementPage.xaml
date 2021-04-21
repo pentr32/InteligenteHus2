@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:forms="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms" 
+             xmlns:local="clr-namespace:MobilApp.ViewModels"
+             x:Class="MobilApp.Views.GraphicMeasurementPage">
+
+    <RefreshView x:DataType="local:GraphicMeasurementViewModel" Command="{Binding LoadMeasurementsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+        <ScrollView>
+            <!--<Picker Title="Pick a car for me!"  
+                ItemsSource="{Binding Cars}"
+                ItemDisplayBinding="{Binding Brand}"
+                SelectedItem="{Binding CarSelectedItem}"  />-->
+            <forms:ChartView x:Name="MeasurementChart" HeightRequest="150" Chart="{Binding MeasurementChart}"/>
+        </ScrollView>
+    </RefreshView>
+    
+</ContentPage>

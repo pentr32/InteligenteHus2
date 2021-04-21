@@ -28,6 +28,7 @@
                             FontSize="20" />
                 </StackLayout>
             </ScrollView>
+            
         </RefreshView>
     </StackLayout>
 </ContentPage>

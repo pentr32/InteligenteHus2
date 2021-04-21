@@ -24,5 +24,11 @@ namespace WebAPI.Controllers
         {
             return Ok(await _dataService.GetCurrentMeasurementAsync(false));
         }
+
+        [HttpGet("{filterby}", Name = "Get")]
+        public async Task<ActionResult<THMeasurement>> Get(MeasurementFilterBy FilterBy)
+        {
+            return Ok(await _dataService.GetMeasurementsByFilterAsync(FilterBy, false));
+        }
     }
 }

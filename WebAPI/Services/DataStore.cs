@@ -31,9 +31,19 @@ namespace WebAPI.Services
             return await Task.FromResult(thMeasurements.OrderByDescending(x => x.UpdatedMeasurementTime).FirstOrDefault());
         }
 
-        //public async Task<THMeasurement> GetCurrentMeasurementAsync()
-        //{
-        //    THMeasurement currentMeasurement = thMeasurements.OrderBy(x => x.UpdatedMeasurementTime)
-        //}
+        public async Task<IEnumerable<THMeasurement>> GetMeasurementsByFilterAsync(MeasurementFilterBy FilterBy, bool forceRefresh = false)
+        {
+            switch (FilterBy)
+            {
+                case MeasurementFilterBy.NoFilter:
+                    return await Task.FromResult(thMeasurements);
+
+                case MeasurementFilterBy.ByCurrentOne:
+                    return await Task.FromResult(thMeasurements.OrderByDescending(x => x.UpdatedMeasurementTime).ToList());
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(FilterBy), FilterBy, null);
+            }
+        }
     }
 }
