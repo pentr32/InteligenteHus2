@@ -24,7 +24,6 @@ namespace MobilApp.ViewModels
         public HomeViewModel()
         {
             Title = "Measurements";
-            //THMeasurements = new ObservableCollection<THMeasurement>();
             LoadMeasurementsCommand = new Command(async () => await ExecuteLoadMeasurementsCommand());
 
             IsConnected = Connectivity.NetworkAccess != NetworkAccess.Internet;
@@ -43,7 +42,7 @@ namespace MobilApp.ViewModels
             try
             {
                 //THMeasurements.Clear();
-                THMeasurement = await _thService.GetCurrentMeasurement();
+                THMeasurement = await _thService.GetCurrentMeasurementAsync();
             }
             catch (Exception ex)
             {

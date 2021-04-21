@@ -10,40 +10,6 @@
         <controls:OfflineIndicator x:DataType="local:BaseViewModel" IsVisible="{Binding IsConnected}" />
 
         <RefreshView x:DataType="local:HomeViewModel" Command="{Binding LoadMeasurementsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
-            <!--<CollectionView x:Name="ItemsListView"
-                ItemsSource="{Binding THMeasurement}"
-                SelectionMode="None">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <StackLayout Padding="10" x:DataType="model:THMeasurement">
-                        <Label Text="Humidity:" FontSize="17" />
-                        <Label Text="{Binding Humidity}" 
-                            LineBreakMode="NoWrap" 
-                            FontSize="20" />
-                        
-                        <Label Text="Temperature:" FontSize="17" />
-                        <Label Text="{Binding Temperature}" 
-                            LineBreakMode="NoWrap"
-                            FontSize="20" />
-
-                        <Label Text="Date time:" FontSize="17" />
-                        <Label Text="{Binding UpdatedMeasurementTime}" 
-                            LineBreakMode="NoWrap"
-                            FontSize="20" />
-                        -->
-            <!--<StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer 
-                                NumberOfTapsRequired="1"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=ItemTapped}"		
-                                CommandParameter="{Binding .}">
-                            </TapGestureRecognizer>
-                        </StackLayout.GestureRecognizers>-->
-            <!--
-                    </StackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>-->
-
             <ScrollView>
                 <StackLayout Padding="10">
                     <Label Text="Humidity:" FontSize="17" />
