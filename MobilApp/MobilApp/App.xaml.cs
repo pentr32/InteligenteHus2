@@ -1,6 +1,8 @@
-﻿using MobilApp.Services;
+﻿using MobilApp.Repository;
+using MobilApp.Services;
 using MobilApp.Views;
 using System;
+using TinyIoC;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -14,6 +16,11 @@ namespace MobilApp
             InitializeComponent();
 
             DependencyService.Register<MockDataStore>();
+
+            var container = TinyIoCContainer.Current;
+            container.Register<IGenericRepository, GenericRepository>();
+            container.Register<ITHService, THService>();
+
             MainPage = new AppShell();
         }
 
