@@ -1,7 +1,9 @@
-﻿using MobilApp.Repository;
+﻿using MobilApp.Constants;
+using MobilApp.Models;
+using MobilApp.Repository;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 using TinyIoC;
 
 namespace MobilApp.Services
@@ -12,6 +14,15 @@ namespace MobilApp.Services
         public THService()
         {
             _genericRepository = TinyIoCContainer.Current.Resolve<IGenericRepository>();
+        }
+
+        public async Task<THMeasurement> GetCurrentMeasurement()
+        {
+            UriBuilder builder = new UriBuilder(ApiConstants.BaseApiUrl)
+            {
+                Path = ApiConstants.THMeasurementsEndpoint
+            };
+            return await _genericRepository.GetAsync<THMeasurement>(builder.ToString());
         }
     }
 }

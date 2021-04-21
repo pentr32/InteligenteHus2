@@ -4,19 +4,31 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using TinyIoC;
 using Xamarin.Forms;
 
 namespace MobilApp.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
+        protected readonly ITHService _thService;
+        public BaseViewModel()
+        {
+            _thService = TinyIoCContainer.Current.Resolve<ITHService>();
+        }
 
         bool isBusy = false;
         public bool IsBusy
         {
             get { return isBusy; }
             set { SetProperty(ref isBusy, value); }
+        }
+
+        bool isConnected;
+        public bool IsConnected
+        {
+            get => isConnected;
+            set { SetProperty(ref isConnected, value); }
         }
 
         string title = string.Empty;

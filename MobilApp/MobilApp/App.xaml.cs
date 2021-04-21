@@ -15,8 +15,6 @@ namespace MobilApp
         {
             InitializeComponent();
 
-            //DependencyService.Register<MockDataStore>();
-
             var container = TinyIoCContainer.Current;
             container.Register<IGenericRepository, GenericRepository>();
             container.Register<ITHService, THService>();
