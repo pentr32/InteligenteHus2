@@ -14,16 +14,21 @@ namespace MobilApp.Services
     public class THService : ITHService
     {
         private readonly IGenericRepository _genericRepository;
+        THMeasurement myMeasurement;
+        
         public THService()
         {
             _genericRepository = TinyIoCContainer.Current.Resolve<IGenericRepository>();
+            myMeasurement = new THMeasurement();
         }
 
         public async Task<THMeasurement> GetCurrentMeasurementAsync()
         {
+
             UriBuilder builder = new UriBuilder(ApiConstants.BaseApiUrl)
             {
-                Path = ApiConstants.THMeasurementsEndpoint
+                Path = ApiConstants.THMeasurementsEndpoint,
+                Query = "results=1"
             };
 
             string url = builder.Path;
@@ -36,21 +41,48 @@ namespace MobilApp.Services
             {
                 return Barrel.Current.Get<THMeasurement>(key: url);
             }
-            Thread.Sleep(3000); // Simulerer 3 sekunders forsinkelte
-            var measurement = await _genericRepository.GetAsync<THMeasurement>(builder.ToString());
-            //Saves the cache and pass it a timespan for expiration
+            var measurement = await _genericRepository.GetAsync<Root>(builder.ToString());
+
             Barrel.Current.Add(key: url, data: measurement, expireIn: TimeSpan.FromSeconds(20));
-            return measurement;
+
+            if(measurement != null)
+            {
+                myMeasurement.Temperature = float.Parse(measurement.feeds[0].field1);
+                myMeasurement.Humidity = float.Parse(measurement.feeds[0].field2);
+                myMeasurement.UpdatedMeasurementTime = measurement.feeds[0].created_at;
+            }
+
+            return myMeasurement;
         }
 
-        public async Task<IEnumerable<THMeasurement>> GetAllMeasurementsAsync()
+        public async Task<IEnumerable<THMeasurement>> GetAllMeasurementsAsync(MeasurementFilterBy FilterBy)
         {
+            int queryResults = 0;
+            switch (FilterBy)
+            {
+                case MeasurementFilterBy.ByNewestTime:
+                    queryResults = 3;
+                    break;
+
+                case MeasurementFilterBy.ByNewestDay:
+                    queryResults = 6;
+                    break;
+
+                case MeasurementFilterBy.ByNewestWeek:
+                    queryResults = 15;
+                    break;
+
+                default:
+                    break;
+            }
+
             UriBuilder builder = new UriBuilder(ApiConstants.BaseApiUrl)
             {
-                Path = $"{ApiConstants.THMeasurementsEndpoint}/{MeasurementFilterBy.NoFilter}"
+                Path = $"{ApiConstants.THMeasurementsEndpoint}",
+                Query = $"results={queryResults.ToString()}"
             };
 
-            string url = builder.Path;
+            string url = builder.Path + builder.Query + "List";
 
             if (Connectivity.NetworkAccess == NetworkAccess.None)
             {
@@ -60,11 +92,26 @@ namespace MobilApp.Services
             {
                 return Barrel.Current.Get<IEnumerable<THMeasurement>>(key: url);
             }
-            Thread.Sleep(3000); // Simulerer 3 sekunders forsinkelte
-            var measurements = await _genericRepository.GetAsync<IEnumerable<THMeasurement>>(builder.ToString());
-            //Saves the cache and pass it a timespan for expiration
+            var measurements = await _genericRepository.GetAsync<Root>(builder.ToString());
+
             Barrel.Current.Add(key: url, data: measurements, expireIn: TimeSpan.FromSeconds(20));
-            return measurements;
+
+            List<THMeasurement> thMeasurements = new List<THMeasurement>();
+
+            if(measurements != null)
+            {
+                foreach(var feed in measurements.feeds)
+                {
+                    thMeasurements.Add(new THMeasurement
+                    {
+                        Temperature = float.Parse(feed.field1),
+                        Humidity = float.Parse(feed.field2),
+                        UpdatedMeasurementTime = feed.created_at
+                    });
+                }
+            }
+
+            return thMeasurements;
         }
     }
 }

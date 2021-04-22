@@ -7,6 +7,6 @@ namespace MobilApp.Services
     public interface ITHService
     {
         Task<THMeasurement> GetCurrentMeasurementAsync();
-        Task<IEnumerable<THMeasurement>> GetAllMeasurementsAsync();
+        Task<IEnumerable<THMeasurement>> GetAllMeasurementsAsync(MeasurementFilterBy FilterBy);
     }
 }

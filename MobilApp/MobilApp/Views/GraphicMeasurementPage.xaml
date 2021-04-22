@@ -2,17 +2,45 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:forms="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms" 
-             xmlns:local="clr-namespace:MobilApp.ViewModels"
-             x:Class="MobilApp.Views.GraphicMeasurementPage">
+             xmlns:local="clr-namespace:MobilApp.ViewModels" 
+             xmlns:controls="clr-namespace:MobilApp.Controls" 
+             xmlns:converters="clr-namespace:MobilApp.Converters"
+             x:Class="MobilApp.Views.GraphicMeasurementPage"
+             Title="{Binding Title}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:IntToStringConverter x:Key="intToStringConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <RefreshView x:DataType="local:GraphicMeasurementViewModel" Command="{Binding LoadMeasurementsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
         <ScrollView>
-            <!--<Picker Title="Pick a car for me!"  
-                ItemsSource="{Binding Cars}"
-                ItemDisplayBinding="{Binding Brand}"
-                SelectedItem="{Binding CarSelectedItem}"  />-->
-            <forms:ChartView x:Name="MeasurementChart" HeightRequest="150" Chart="{Binding MeasurementChart}"/>
+            <StackLayout Padding="4,5,4,20" Spacing="50">
+                <controls:OfflineIndicator x:DataType="local:BaseViewModel" IsVisible="{Binding IsConnected}" />
+
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Pick a filter: " FontAttributes="Bold" VerticalOptions="Center" FontSize="20" ></Label>
+                    <Picker  ItemsSource="{Binding PickerFilters, Mode=TwoWay}"
+                             SelectedIndex="{Binding SelectedFilter, Converter={StaticResource intToStringConverter}}"
+                             HorizontalOptions="FillAndExpand"/>
+                </StackLayout>
+
+                <Frame BackgroundColor="#2850d5" Padding="3,9,3,9" Margin="0" CornerRadius="15" HasShadow="True" OutlineColor="LightGray">
+                    <StackLayout Spacing="20" HorizontalOptions="FillAndExpand">
+                        <Label Text="Temperature &#176;C" FontAttributes="Bold" FontSize="25" Margin="20,0,0,0" />
+                        <forms:ChartView HeightRequest="350" Chart="{Binding TemperatureChart}" />
+                    </StackLayout>
+                </Frame>
+
+                <Frame BackgroundColor="#2850d5" Padding="3,9,3,9" Margin="0" CornerRadius="15" HasShadow="True" OutlineColor="LightGray">
+                    <StackLayout Spacing="20" HorizontalOptions="FillAndExpand">
+                        <Label Text="Humidity %" FontAttributes="Bold" FontSize="25" Margin="20,0,0,0" />
+                        <forms:ChartView HeightRequest="350" Chart="{Binding HumidityChart}" />
+                    </StackLayout>
+                </Frame>
+
+            </StackLayout>
         </ScrollView>
     </RefreshView>
-    
 </ContentPage>

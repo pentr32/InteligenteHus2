@@ -10,60 +10,80 @@ using Xamarin.Forms;
 using Microcharts;
 using Entry = Microcharts.ChartEntry;
 using SkiaSharp;
+using System.Linq;
 
 namespace MobilApp.ViewModels
 {
     public class GraphicMeasurementViewModel : BaseViewModel
     {
-        public ObservableCollection<THMeasurement> THMeasurements;
-        public List<Entry> Entries;
-        private Chart measurementChart;
-        public Chart MeasurementChart
+        #region Properties
+        public Command LoadMeasurementsCommand { get; set; }
+
+        private MeasurementFilterBy selectedFilter;
+        public MeasurementFilterBy SelectedFilter
         {
-            get => measurementChart;
-            set => SetProperty(ref measurementChart, value);
+            get => selectedFilter;
+            set
+            {
+
+                if (SetProperty(ref selectedFilter, value))
+                {
+                    ExecuteLoadAllMeasurementsCommand();
+                }
+            }
+        }
+        public List<string> PickerFilters
+        {
+            get
+            {
+                return Enum.GetNames(typeof(MeasurementFilterBy)).ToList();
+            }
         }
 
-        public Command LoadMeasurementsCommand { get; }
+        private Chart temperatureChart;
+        private Chart humidityChart;
+        public Chart TemperatureChart
+        {
+            get => temperatureChart;
+            set => SetProperty(ref temperatureChart, value);
+        }
 
+        public Chart HumidityChart
+        {
+            get => humidityChart;
+            set => SetProperty(ref humidityChart, value);
+        }
+
+        #endregion Properties
+
+        #region Constructor
         public GraphicMeasurementViewModel()
         {
             Title = "Graphic Measurements";
-            THMeasurements = new ObservableCollection<THMeasurement>();
-            Entries = new List<Entry>();
-            LoadMeasurementsCommand = new Command(async () => await ExecuteLoadAllMeasurementsCommand());
+
+            SelectedFilter = MeasurementFilterBy.ByNewestDay;
+            LoadMeasurementsCommand = new Command(() => ExecuteLoadAllMeasurementsCommand());
 
             IsConnected = Connectivity.NetworkAccess != NetworkAccess.Internet;
             Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
         }
+        #endregion Constructor
 
         private void Connectivity_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
         {
             IsConnected = e.NetworkAccess != NetworkAccess.Internet;
         }
 
-        async Task ExecuteLoadAllMeasurementsCommand()
+        async void ExecuteLoadAllMeasurementsCommand()
         {
             IsBusy = true;
 
             try
             {
-                THMeasurements.Clear();
-                Entries.Clear();
 
-                var items = await _thService.GetAllMeasurementsAsync();
-                foreach (var item in items)
-                {
-                    THMeasurements.Add(item);
-                    Entries.Add(new Entry(200)
-                    {
-                        Color = SKColor.Parse("#00BFFF"),
-                        Label = nameof(item.Temperature),
-                        ValueLabel = item.Temperature.ToString()
-                    });
-                }
-
-                MeasurementChart = new RadialGaugeChart { Entries = Entries };
+                var measurements = await _thService.GetAllMeasurementsAsync(SelectedFilter);
+                PopulateCharts(measurements);
+                
             }
             catch (Exception ex)
             {
@@ -73,6 +93,65 @@ namespace MobilApp.ViewModels
             {
                 IsBusy = false;
             }
+        }
+
+        void PopulateCharts(IEnumerable<THMeasurement> measurements)
+        {
+            List<Entry> TemperaturEntries = new List<Entry>();
+            List<Entry> HumidityEntries = new List<Entry>();
+
+            foreach (var item in measurements)
+            {
+                #region Add entries for temperature chart
+                TemperaturEntries.Add(new Entry(item.Temperature)
+                {
+                    Color = SKColor.Parse("#FFFFFF"),
+                    TextColor = SKColor.Parse("#FFFFFF"),
+                    Label = item.UpdatedMeasurementTime.ToString(),
+                    ValueLabelColor = SKColor.Parse("#FFFFFF"),
+                    ValueLabel = item.Temperature.ToString()
+                });
+                #endregion Add entries for temperature chart
+
+                #region Add entries for humidity chart
+                HumidityEntries.Add(new Entry(item.Humidity)
+                {
+                    Color = SKColor.Parse("#FFFFFF"),
+                    TextColor = SKColor.Parse("#FFFFFF"),
+                    Label = item.UpdatedMeasurementTime.ToString(),
+                    ValueLabelColor = SKColor.Parse("#FFFFFF"),
+                    ValueLabel = item.Humidity.ToString()
+                });
+                #endregion Add entries for temperature chart
+            }
+
+            #region Populate Charts
+            TemperatureChart = new LineChart
+            {
+                Entries = TemperaturEntries,
+                LabelTextSize = 36,
+                LineSize = 8,
+                PointMode = PointMode.Circle,
+                LineMode = LineMode.Straight,
+                PointSize = 18,
+                ValueLabelOrientation = Orientation.Horizontal,
+                LabelOrientation = Orientation.Vertical,
+                AnimationProgress = 0.3f,
+                BackgroundColor = SKColor.Parse("#2850d5"),
+                LabelColor = SKColor.Parse("#FFFFFF")
+            };
+
+            HumidityChart = new BarChart
+            {
+                Entries = HumidityEntries,
+                LabelTextSize = 36,
+                ValueLabelOrientation = Orientation.Horizontal,
+                LabelOrientation = Orientation.Vertical,
+                AnimationProgress = 0.3f,
+                BackgroundColor = SKColor.Parse("#2850d5"),
+                LabelColor = SKColor.Parse("#FFFFFF")
+            };
+            #endregion Populate Charts
         }
 
         public void OnAppearing()

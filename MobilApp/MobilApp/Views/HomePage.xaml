@@ -6,29 +6,70 @@
              x:Class="MobilApp.Views.HomePage"
              Title="{Binding Title}">
 
-    <StackLayout>
-        <controls:OfflineIndicator x:DataType="local:BaseViewModel" IsVisible="{Binding IsConnected}" />
 
-        <RefreshView x:DataType="local:HomeViewModel" Command="{Binding LoadMeasurementsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
-            <ScrollView>
-                <StackLayout Padding="10">
-                    <Label Text="Humidity:" FontSize="17" />
-                    <Label Text="{Binding THMeasurement.Humidity}" 
-                            LineBreakMode="NoWrap" 
-                            FontSize="20" />
+    <RefreshView x:DataType="local:HomeViewModel" Command="{Binding LoadMeasurementsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
 
-                    <Label Text="Temperature:" FontSize="17" />
-                    <Label Text="{Binding THMeasurement.Temperature}" 
-                            LineBreakMode="NoWrap"
-                            FontSize="20" />
+        <ScrollView>
+            <StackLayout Padding="4,5,4,20" Spacing="50">
+                <controls:OfflineIndicator x:DataType="local:BaseViewModel" IsVisible="{Binding IsConnected}" />
 
-                    <Label Text="Date time:" FontSize="17" />
-                    <Label Text="{Binding THMeasurement.UpdatedMeasurementTime}" 
-                            LineBreakMode="NoWrap"
-                            FontSize="20" />
-                </StackLayout>
-            </ScrollView>
-            
-        </RefreshView>
-    </StackLayout>
+                <Frame BackgroundColor="#2850d5" Padding="24,9,24,9" Margin="0" CornerRadius="15" HasShadow="True" OutlineColor="LightGray">
+                    <StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <StackLayout Padding="10" Spacing="40">
+
+                                <StackLayout>
+                                    <Label Text="Temperature:" FontSize="25" TextColor='White' />
+                                    <Label Text="{Binding THMeasurement.Temperature, StringFormat='{0} &#176;C'}"
+                                                   FontAttributes="Bold"
+                                                   LineBreakMode="NoWrap"
+                                                   FontSize="30"
+                                                   TextColor='White'/>
+                                </StackLayout>
+
+                            </StackLayout>
+                        </StackLayout>
+                    </StackLayout>
+                </Frame>
+
+                <Frame BackgroundColor="#2850d5" Padding="24,9,24,9" Margin="0" CornerRadius="15" HasShadow="True" OutlineColor="LightGray">
+                    <StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <StackLayout Padding="10" Spacing="40">
+                                
+                                <StackLayout>
+                                    <Label Text="Humidity:" FontSize="25" TextColor='White' />
+                                    <Label Text="{Binding THMeasurement.Humidity, StringFormat='{0} %'}"
+                                                   FontAttributes="Bold"
+                                                   LineBreakMode="NoWrap" 
+                                                   FontSize="30"
+                                                   TextColor='White'/>
+                                </StackLayout>
+                                
+                            </StackLayout>
+                        </StackLayout>
+                    </StackLayout>
+                </Frame>
+
+                <Frame BackgroundColor="#2850d5" Padding="24,9,24,9" Margin="0" CornerRadius="15" HasShadow="True" OutlineColor="LightGray">
+                    <StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <StackLayout Padding="10" Spacing="40">
+
+                                <StackLayout>
+                                    <Label Text="Date time:" FontSize="18" TextColor='White'  />
+                                    <Label Text="{Binding THMeasurement.UpdatedMeasurementTime}"
+                                                   LineBreakMode="NoWrap"
+                                                   FontSize="18"
+                                                   TextColor='White'/>
+                                </StackLayout>
+
+                            </StackLayout>
+                        </StackLayout>
+                    </StackLayout>
+                </Frame>
+
+            </StackLayout>
+        </ScrollView>
+    </RefreshView>
 </ContentPage>

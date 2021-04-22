@@ -1,6 +1,8 @@
 ﻿public enum MeasurementFilterBy
 {
     NoFilter,
-    ByCurrentOne
+    ByNewestTime,
+    ByNewestDay,
+    ByNewestWeek
 }
     

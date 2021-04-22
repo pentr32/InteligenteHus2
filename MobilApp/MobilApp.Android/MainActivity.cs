@@ -12,6 +12,7 @@ namespace MobilApp.Droid
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            Window.SetStatusBarColor(Android.Graphics.Color.Argb(255, 14, 49, 160));
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
