@@ -7,7 +7,7 @@
     -->
     <Application.Resources>
         <ResourceDictionary>
-            <Color x:Key="Primary">#0f31a0</Color>
+            <Color x:Key="Primary">#08082c</Color>
             <Style TargetType="Button">
                 <Setter Property="TextColor" Value="Black"></Setter>
                 <Setter Property="VisualStateManager.VisualStateGroups">

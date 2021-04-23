@@ -16,6 +16,7 @@ namespace MobilApp.Services
         private readonly IGenericRepository _genericRepository;
         THMeasurement myMeasurement;
         
+
         public THService()
         {
             _genericRepository = TinyIoCContainer.Current.Resolve<IGenericRepository>();
@@ -57,6 +58,8 @@ namespace MobilApp.Services
 
         public async Task<IEnumerable<THMeasurement>> GetAllMeasurementsAsync(MeasurementFilterBy FilterBy)
         {
+            List<THMeasurement> thMeasurements = new List<THMeasurement>();
+
             int queryResults = 0;
             switch (FilterBy)
             {
@@ -65,11 +68,11 @@ namespace MobilApp.Services
                     break;
 
                 case MeasurementFilterBy.ByNewestDay:
-                    queryResults = 6;
+                    queryResults = 8;
                     break;
 
                 case MeasurementFilterBy.ByNewestWeek:
-                    queryResults = 15;
+                    queryResults = 10;
                     break;
 
                 default:
@@ -95,8 +98,6 @@ namespace MobilApp.Services
             var measurements = await _genericRepository.GetAsync<Root>(builder.ToString());
 
             Barrel.Current.Add(key: url, data: measurements, expireIn: TimeSpan.FromSeconds(20));
-
-            List<THMeasurement> thMeasurements = new List<THMeasurement>();
 
             if(measurements != null)
             {

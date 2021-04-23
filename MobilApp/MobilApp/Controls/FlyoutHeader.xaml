@@ -9,11 +9,12 @@
 
     <Grid BackgroundColor="Black">
         <Image Aspect="AspectFill"
-               Source="xamarinstore.jpg"
+               Source="humiditytemperature.jpg"
                Opacity="0.6" />
         <Label Text="Inteligente Hus 2"
                TextColor="White"
                FontAttributes="Bold"
+               FontSize="35"
                HorizontalTextAlignment="Center"
                VerticalTextAlignment="Center" />
     </Grid>

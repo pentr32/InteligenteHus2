@@ -14,7 +14,7 @@
             <StackLayout Padding="4,5,4,20" Spacing="50">
                 <controls:OfflineIndicator x:DataType="local:BaseViewModel" IsVisible="{Binding IsConnected}" />
 
-                <Frame BackgroundColor="#2850d5" Padding="35" Margin="0" CornerRadius="15" HasShadow="True" OutlineColor="LightGray">
+                <Frame BackgroundColor="#2850d5" Padding="25" Margin="10" CornerRadius="15" HasShadow="True" OutlineColor="LightGray">
                     <StackLayout>
                         <StackLayout Orientation="Horizontal">
                             <StackLayout Padding="10" Spacing="40">
@@ -22,46 +22,46 @@
                                 <StackLayout>
                                     <Grid>
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="2*" />
-                                            <RowDefinition Height="2*" />
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
 
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="2*" />
-                                            <ColumnDefinition Width="2*" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
 
                                         <Label Grid.ColumnSpan="2" 
                                                FontSize="50" 
                                                FontFamily="FA-solid" 
                                                Text="{Static fa:IconFont.TemperatureHigh}" 
-                                               TextColor="White"
-                                               VerticalOptions="CenterAndExpand"></Label>
-                                        
+                                               TextColor="White" />
+
                                         <Label Grid.Column="1" 
                                                Grid.Row="0" 
                                                Text="Temperature:" 
                                                FontSize="25" 
                                                FontAttributes="Bold"
                                                HorizontalOptions="StartAndExpand"/>
-                                        <Label Grid.Column="1" Grid.Row="1" Text="{Binding THMeasurement.Temperature, StringFormat='{0} &#176;C'}"
-                                                   FontAttributes="Bold"
-                                                   LineBreakMode="NoWrap"
-                                                   FontSize="30"
-                                                   TextColor='White'/>
+                                        <Label Grid.Column="1" Grid.Row="1" 
+                                               Text="{Binding THMeasurement.Temperature, StringFormat='{0} &#176;C'}"
+                                               FontAttributes="Bold"
+                                               LineBreakMode="NoWrap"
+                                               FontSize="30"
+                                               TextColor='White'/>
                                     </Grid>
                                 </StackLayout>
 
                                 <StackLayout>
                                     <Grid>
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="2*" />
-                                            <RowDefinition Height="2*" />
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
 
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="2*" />
-                                            <ColumnDefinition Width="2*" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
 
                                         <Label Grid.ColumnSpan="2" 
@@ -86,7 +86,7 @@
                                 </StackLayout>
 
                                 <StackLayout Orientation="Horizontal">
-                                    <Label Text="Date time:" FontSize="19" FontAttributes="Bold" />
+                                    <Label Text="Created at:" FontSize="19" FontAttributes="Bold" />
                                     <Label Text="{Binding THMeasurement.UpdatedMeasurementTime}"
                                                    LineBreakMode="NoWrap"
                                                    FontSize="19"
