@@ -27,6 +27,19 @@
                     </VisualStateGroupList>
                 </Setter>
             </Style>
+
+            <Style x:Key="IconFont" TargetType="{x:Type Label}">
+                <Setter Property="FontFamily">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="Android" Value="fa-solid-900.ttf#Font Awesome 5 Free Solid" />
+                            <On Platform="iOS">Font Awesome 5 Free</On>
+                            <!--<On Platform="UWP">/Assets/fa-solid-900.ttf#Font Awesome 5 Free</On>-->
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            
         </ResourceDictionary>        
     </Application.Resources>
 </Application>

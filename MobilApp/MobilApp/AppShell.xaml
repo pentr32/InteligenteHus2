@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Shell xmlns="http://xamarin.com/schemas/2014/forms" 
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-       xmlns:local="clr-namespace:MobilApp.Views"
+       xmlns:local="clr-namespace:MobilApp.Views" xmlns:controls="clr-namespace:MobilApp.Controls"
        Title="MobilApp"
        x:Class="MobilApp.AppShell">
 
@@ -11,6 +11,10 @@
         https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/
     -->
 
+    <Shell.FlyoutHeader>
+        <controls:FlyoutHeader />
+    </Shell.FlyoutHeader>
+    
     <Shell.Resources>
         <ResourceDictionary>
             <Style x:Key="BaseStyle" TargetType="Element">
@@ -84,10 +88,10 @@
     <FlyoutItem Title="Browse" Icon="icon_feed.png">
         <ShellContent Route="ItemsPage" ContentTemplate="{DataTemplate local:ItemsPage}" />
     </FlyoutItem>-->
-    <FlyoutItem Title="Home">
+    <FlyoutItem Title="Current Measurement" Icon="icon.png">
         <ShellContent Route="HomePage" ContentTemplate="{DataTemplate local:HomePage}" />
     </FlyoutItem>
-    <FlyoutItem Title="Graphic Measurements">
+    <FlyoutItem Title="Graphic Measurements" Icon="icon_graph.png">
         <ShellContent Route="GraphicMeasurementPage" ContentTemplate="{DataTemplate local:GraphicMeasurementPage}" />
     </FlyoutItem>
 

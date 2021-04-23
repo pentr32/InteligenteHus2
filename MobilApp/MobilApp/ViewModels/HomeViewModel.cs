@@ -23,7 +23,7 @@ namespace MobilApp.ViewModels
 
         public HomeViewModel()
         {
-            Title = "Measurements";
+            Title = "Current Measurement";
             LoadMeasurementsCommand = new Command(async () => await ExecuteLoadMeasurementsCommand());
 
             IsConnected = Connectivity.NetworkAccess != NetworkAccess.Internet;
