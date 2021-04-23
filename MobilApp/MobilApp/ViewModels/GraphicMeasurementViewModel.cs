@@ -137,7 +137,7 @@ namespace MobilApp.ViewModels
                 ValueLabelOrientation = Orientation.Horizontal,
                 LabelOrientation = Orientation.Vertical,
                 AnimationProgress = 0.3f,
-                BackgroundColor = SKColor.Parse("#2850d5"),
+                BackgroundColor = SKColor.Parse("#0b0b44"),
                 LabelColor = SKColor.Parse("#FFFFFF")
             };
 
@@ -148,7 +148,7 @@ namespace MobilApp.ViewModels
                 ValueLabelOrientation = Orientation.Horizontal,
                 LabelOrientation = Orientation.Vertical,
                 AnimationProgress = 0.3f,
-                BackgroundColor = SKColor.Parse("#2850d5"),
+                BackgroundColor = SKColor.Parse("#0b0b44"),
                 LabelColor = SKColor.Parse("#FFFFFF")
             };
             #endregion Populate Charts

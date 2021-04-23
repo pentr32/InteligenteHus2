@@ -26,16 +26,16 @@
                              HorizontalOptions="FillAndExpand"/>
                 </StackLayout>
 
-                <Frame BackgroundColor="#2850d5" Padding="3,9,3,9" Margin="0" CornerRadius="15" HasShadow="True" OutlineColor="LightGray">
+                <Frame BackgroundColor="#0b0b44" Padding="3,9,3,9" Margin="0" CornerRadius="15" HasShadow="True" OutlineColor="DarkGray">
                     <StackLayout Spacing="20" HorizontalOptions="FillAndExpand">
-                        <Label Text="Temperature &#176;C" FontAttributes="Bold" FontSize="25" Margin="20,0,0,0" />
+                        <Label Text="Temperature &#176;C" FontAttributes="Bold" FontSize="25" Margin="20,0,0,0" TextColor="LightGray" />
                         <forms:ChartView HeightRequest="350" Chart="{Binding TemperatureChart}" />
                     </StackLayout>
                 </Frame>
 
-                <Frame BackgroundColor="#2850d5" Padding="3,9,3,9" Margin="0" CornerRadius="15" HasShadow="True" OutlineColor="LightGray">
+                <Frame BackgroundColor="#0b0b44" Padding="3,9,3,9" Margin="0" CornerRadius="15" HasShadow="True" OutlineColor="DarkGray">
                     <StackLayout Spacing="20" HorizontalOptions="FillAndExpand">
-                        <Label Text="Humidity %" FontAttributes="Bold" FontSize="25" Margin="20,0,0,0" />
+                        <Label Text="Humidity %" FontAttributes="Bold" FontSize="25" Margin="20,0,0,0" TextColor="LightGray" />
                         <forms:ChartView HeightRequest="350" Chart="{Binding HumidityChart}" />
                     </StackLayout>
                 </Frame>

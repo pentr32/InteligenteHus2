@@ -11,6 +11,7 @@
         <Image Aspect="AspectFill"
                Source="humiditytemperature.jpg"
                Opacity="0.6" />
+        
         <Label Text="Inteligente Hus 2"
                TextColor="White"
                FontAttributes="Bold"

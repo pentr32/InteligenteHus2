@@ -14,7 +14,7 @@
             <StackLayout Padding="4,5,4,20" Spacing="50">
                 <controls:OfflineIndicator x:DataType="local:BaseViewModel" IsVisible="{Binding IsConnected}" />
 
-                <Frame BackgroundColor="#2850d5" Padding="25" Margin="10" CornerRadius="15" HasShadow="True" OutlineColor="LightGray">
+                <Frame BackgroundColor="#0b0b44" Padding="25" Margin="10" CornerRadius="15" HasShadow="True" OutlineColor="DarkGray">
                     <StackLayout>
                         <StackLayout Orientation="Horizontal">
                             <StackLayout Padding="10" Spacing="40">
@@ -42,7 +42,9 @@
                                                Text="Temperature:" 
                                                FontSize="25" 
                                                FontAttributes="Bold"
-                                               HorizontalOptions="StartAndExpand"/>
+                                               HorizontalOptions="StartAndExpand"
+                                               TextColor="LightGray"/>
+                                        
                                         <Label Grid.Column="1" Grid.Row="1" 
                                                Text="{Binding THMeasurement.Temperature, StringFormat='{0} &#176;C'}"
                                                FontAttributes="Bold"
@@ -69,28 +71,36 @@
                                                FontFamily="FA-solid" 
                                                Text="{Static fa:IconFont.Water}" 
                                                TextColor="White"
-                                               VerticalOptions="CenterAndExpand"></Label>
+                                               VerticalOptions="CenterAndExpand" />
 
                                         <Label Grid.Column="1" 
                                                Grid.Row="0" 
                                                Text="Humidity:" 
                                                FontSize="25" 
                                                FontAttributes="Bold"
-                                               HorizontalOptions="StartAndExpand"/>
-                                        <Label Grid.Column="1" Grid.Row="1" Text="{Binding THMeasurement.Humidity, StringFormat='{0} %'}"
-                                                   FontAttributes="Bold"
-                                                   LineBreakMode="NoWrap"
-                                                   FontSize="30"
-                                                   TextColor='White'/>
+                                               HorizontalOptions="StartAndExpand"
+                                               TextColor="LightGray"/>
+                                        
+                                        <Label Grid.Column="1" 
+                                               Grid.Row="1"
+                                               Text="{Binding THMeasurement.Humidity, StringFormat='{0} %'}"
+                                               FontAttributes="Bold"
+                                               LineBreakMode="NoWrap"
+                                               FontSize="30"
+                                               TextColor='White'/>
                                     </Grid>
                                 </StackLayout>
 
                                 <StackLayout Orientation="Horizontal">
-                                    <Label Text="Created at:" FontSize="19" FontAttributes="Bold" />
+                                    <Label Text="Created at:" 
+                                           FontSize="19" 
+                                           FontAttributes="Bold"
+                                           TextColor="LightGray"/>
+                                    
                                     <Label Text="{Binding THMeasurement.UpdatedMeasurementTime}"
-                                                   LineBreakMode="NoWrap"
-                                                   FontSize="19"
-                                                   TextColor='White'/>
+                                           LineBreakMode="NoWrap"
+                                           FontSize="19"
+                                           TextColor='White'/>
                                 </StackLayout>
 
                             </StackLayout>

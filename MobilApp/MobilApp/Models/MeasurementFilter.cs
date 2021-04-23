@@ -1,5 +1,4 @@
-﻿
-public enum MeasurementFilterBy
+﻿public enum MeasurementFilterBy
 {
     ByNewestTime,
     ByNewestDay,

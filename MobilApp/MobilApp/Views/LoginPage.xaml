@@ -2,13 +2,21 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:controls="clr-namespace:MobilApp.Controls"
              mc:Ignorable="d"
              x:Class="MobilApp.Views.LoginPage"
              Shell.NavBarIsVisible="False">
     <ContentPage.Content>
-        <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
-            <Button VerticalOptions="Center" Text="Login" Command="{Binding LoginCommand}"/>
+        <StackLayout>
+            <StackLayout Padding="0">
+                <controls:FlyoutHeader />
+            </StackLayout>
+            <StackLayout Padding="10,0,10,0" HorizontalOptions="Center">
+
+                <Label Text="Velkommen til den Inteligente Hus 2" FontSize="35" FontAttributes="Bold" Margin="0,10,0,10"></Label>
+                <Label Text="Med den her app, man kan henter målinger af temperature og humidity vha. en API" FontSize="25" Margin="0,10,0,10"></Label>
+                <Button VerticalOptions="Center" Text="Login" TextColor="White" Command="{Binding LoginCommand}"/>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
